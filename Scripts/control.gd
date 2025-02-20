@@ -51,35 +51,14 @@ func set_polygon_vertices()->void:
 		vertices.append(vec2)
 	
 	for d in divisions:
+
 		vec2 = Vector2(0.0 , size.y * (((divisions-1)-d)/float(divisions)))
-		vertices.append(vec2)
+		if vec2 == Vector2(0,0):
+			print("returning")
+		else:
+			vertices.append(vec2)
 	
-	#var vertices :PackedVector2Array = [
-		#
-		#Vector2(0,0), 				#top left
-		#
-		##Vector2(size.x*0.25,0),
-		##Vector2(size.x*0.5,0),
-		##Vector2(size.x*0.75,0),
-		#
-		#Vector2(size.x,0),			#top right
-		#
-		##Vector2(size.x, size.y * 0.25),
-		##Vector2(size.x, size.y * 0.5),
-		##Vector2(size.x, size.y * 0.75),
-		#
-		#Vector2(size.x, size.y),	#bottom right
-		#
-		##Vector2(size.x*0.75,size.y),
-		##Vector2(size.x*0.5,size.y),
-		##Vector2(size.x*0.25,size.y),
-		#
-		#Vector2(0,size.y),				#bottom left
-		#
-		##Vector2(0, size.y * 0.75),
-		##Vector2(0, size.y * 0.5),
-		##Vector2(0, size.y * 0.25),
-	#]
+	
 	polygon.polygon = vertices
 	
 	

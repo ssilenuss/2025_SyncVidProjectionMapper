@@ -1,0 +1,65 @@
+[gd_scene load_steps=6 format=3 uid="uid://ckc5tddvk07cn"]
+
+[ext_resource type="Script" path="res://Scripts/quad_video_control.gd" id="1_5ock6"]
+[ext_resource type="Material" uid="uid://yk0giqhba25e" path="res://Materials/unlit_texture.material" id="2_dqsfg"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_l7ptl"]
+
+[sub_resource type="Environment" id="Environment_aop11"]
+background_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_cs3fq"]
+size = Vector2(1.77778, 1)
+subdivide_width = 9
+subdivide_depth = 4
+
+[node name="Control" type="Control" node_paths=PackedStringArray("camera", "video_mesh")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5ock6")
+camera = NodePath("SubViewportContainer/SubViewport/Camera3D")
+video_mesh = NodePath("SubViewportContainer/SubViewport/MeshInstance3D")
+quad_mesh = SubResource("QuadMesh_l7ptl")
+sub_div_x = null
+sub_div_y = null
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+environment = SubResource("Environment_aop11")
+current = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.900574)
+mesh = SubResource("QuadMesh_cs3fq")
+surface_material_override/0 = ExtResource("2_dqsfg")
+
+[node name="VideoViewport" type="SubViewport" parent="."]
+size = Vector2i(1152, 648)
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="VideoViewport"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="handles" type="Node2D" parent="."]
+
+[node name="grid" type="Node2D" parent="."]
+visible = false
+
+[connection signal="resized" from="." to="." method="_on_resized"]
