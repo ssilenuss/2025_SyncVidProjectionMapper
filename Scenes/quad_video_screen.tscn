@@ -1,17 +1,36 @@
-[gd_scene load_steps=6 format=3 uid="uid://ckc5tddvk07cn"]
+[gd_scene load_steps=6 format=4 uid="uid://ckc5tddvk07cn"]
 
-[ext_resource type="Script" path="res://Scripts/quad_video_control.gd" id="1_5ock6"]
+[ext_resource type="Script" uid="uid://v7xdnlsmuggc" path="res://Scripts/quad_video_control.gd" id="1_5ock6"]
 [ext_resource type="Material" uid="uid://yk0giqhba25e" path="res://Materials/unlit_texture.material" id="2_dqsfg"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_l7ptl"]
+[sub_resource type="QuadMesh" id="QuadMesh_j0p21"]
+size = Vector2(1.77778, 1)
 
 [sub_resource type="Environment" id="Environment_aop11"]
 background_mode = 1
 
-[sub_resource type="QuadMesh" id="QuadMesh_cs3fq"]
-size = Vector2(1.77778, 1)
-subdivide_width = 9
-subdivide_depth = 4
+[sub_resource type="ArrayMesh" id="ArrayMesh_r1gkq"]
+_surfaces = [{
+"aabb": AABB(-0.888889, -0.5, 0, 1.77778, 1, 1e-05),
+"attribute_data": PackedByteArray("AACAPwAAgD8AAAAAAACAPwAAgD8AAAAAAAAAAAAAAAA="),
+"format": 34359742487,
+"index_count": 6,
+"index_data": PackedByteArray("AAABAAIAAQADAAIA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("OY5jPwAAAL8AAAAAOY5jvwAAAL8AAAAAOY5jPwAAAD8AAAAAOY5jvwAAAD8AAAAA/3//f////7//f/9/////v/9//3////+//3//f////78=")
+}, {
+"aabb": AABB(-0.888889, -0.5, 0, 1.77778, 1, 1e-05),
+"attribute_data": PackedByteArray("AACAPwAAgD8AAAAAAACAPwAAgD8AAAAAAAAAAAAAAAA="),
+"format": 34359742487,
+"index_count": 6,
+"index_data": PackedByteArray("AAABAAIAAQADAAIA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("OY5jPwAAAL8AAAAAOY5jvwAAAL8AAAAAOY5jPwAAAD8AAAAAOY5jvwAAAD8AAAAA/3//f////7//f/9/////v/9//3////+//3//f////78=")
+}]
 
 [node name="Control" type="Control" node_paths=PackedStringArray("camera", "video_mesh")]
 layout_mode = 3
@@ -23,9 +42,7 @@ grow_vertical = 2
 script = ExtResource("1_5ock6")
 camera = NodePath("SubViewportContainer/SubViewport/Camera3D")
 video_mesh = NodePath("SubViewportContainer/SubViewport/MeshInstance3D")
-quad_mesh = SubResource("QuadMesh_l7ptl")
-sub_div_x = null
-sub_div_y = null
+quad_mesh = SubResource("QuadMesh_j0p21")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 layout_mode = 1
@@ -47,7 +64,7 @@ current = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.900574)
-mesh = SubResource("QuadMesh_cs3fq")
+mesh = SubResource("ArrayMesh_r1gkq")
 surface_material_override/0 = ExtResource("2_dqsfg")
 
 [node name="VideoViewport" type="SubViewport" parent="."]

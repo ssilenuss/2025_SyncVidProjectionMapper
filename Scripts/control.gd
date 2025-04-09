@@ -5,17 +5,25 @@ extends Control
 
 @export var set_vertices : bool :
 	set(value):
+		
 		if polygon:
 			set_polygon_vertices()
+			
+
 
 @export var polygon : Polygon2D :
 	set(value):
 		polygon = value
-		if polygon:
+		if polygon and handles:
 			set_polygon_vertices()
+			
+@export var handles : Node2D :
+	set(value):
+		handles = value
+		
 
 func _ready() -> void:
-	pass # Replace with function body.
+	set_polygon_vertices()
 
 
 func _process(delta: float) -> void:
@@ -29,15 +37,8 @@ func set_polygon_vertices()->void:
 	var vertices : PackedVector2Array = []
 	
 	var vec2 := Vector2(0,0)
-	#vertices.append(vec2)
+
 	
-	#for y in divisions+1:
-		#for x in divisions+1:
-			#print(divisions)
-			#vec2 = Vector2(size.x * (x/float(divisions)), size.y * (y/float(divisions)) )
-			#vertices.append(vec2)
-	
-	#print(vertices)
 	for d in divisions+1:
 		vec2 = Vector2(size.x*d/float(divisions), 0.0)
 		vertices.append(vec2)
@@ -54,21 +55,32 @@ func set_polygon_vertices()->void:
 
 		vec2 = Vector2(0.0 , size.y * (((divisions-1)-d)/float(divisions)))
 		if vec2 == Vector2(0,0):
-			print("returning")
+			pass
 		else:
 			vertices.append(vec2)
 	
 	
 	polygon.polygon = vertices
 	
-	
-		
+
 	for v in vertices.size():
 		vertices[v] = (vertices[v] / size) * polygon.texture.get_size()
-	print(vertices)
+
 	polygon.uv = vertices
 	
 
-
-func _on_marker_2d_rect_changed() -> void:
-	print("changed")
+	gen_handles()
+	
+func gen_handles()->void:
+	print(handles)
+	for i in handles.get_children():
+		i.queue_free()
+		
+	for v in polygon.polygon.size():
+		var h := Handle2D.new()
+		h.idx = v
+		h.polygon = polygon
+		h.size = Vector2(40,40)
+		h.position = polygon.polygon[v]*polygon.scale + polygon.position
+		h.position -= h.size/2.0
+		handles.add_child(h)
