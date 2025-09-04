@@ -1,5 +1,6 @@
 @tool
-extends Control
+extends Node2D
+class_name PolygonVideo
 
 @export_range(1, 4, 1) var divisions : int = 1
 
@@ -9,7 +10,10 @@ extends Control
 		if polygon:
 			set_polygon_vertices()
 			
-
+@export var size : Vector2 : set=set_screen_size
+func set_screen_size(value: Vector2)->void:
+		size = value
+		print("set size ", size)
 
 @export var polygon : Polygon2D :
 	set(value):
@@ -17,21 +21,30 @@ extends Control
 		if polygon and handles:
 			set_polygon_vertices()
 			
+			
 @export var handles : Node2D :
 	set(value):
 		handles = value
+		print("set Handles")
 		
+@export var controller :Control
 
 func _ready() -> void:
 	set_polygon_vertices()
+
+func switch_videocontrol_visibility()->void:
+	handles.visible = !handles.visible
+	print(name, " handles visible ", visible)
 
 
 func _process(delta: float) -> void:
 	pass
 
 
-func _on_resized() -> void:
-	set_polygon_vertices()
+#func _on_resized() -> void:
+	##set_polygon_vertices()
+	#set_screen_size(get_viewport_rect().size)
+	#pass
 
 func set_polygon_vertices()->void:
 	var vertices : PackedVector2Array = []
@@ -70,9 +83,11 @@ func set_polygon_vertices()->void:
 	
 
 	gen_handles()
+	print("set polygon vertices")
 	
 func gen_handles()->void:
-	print(handles)
+	print("generating " + str(handles) +  " handles")
+	
 	for i in handles.get_children():
 		i.queue_free()
 		
@@ -84,3 +99,8 @@ func gen_handles()->void:
 		h.position = polygon.polygon[v]*polygon.scale + polygon.position
 		h.position -= h.size/2.0
 		handles.add_child(h)
+
+func _exit_tree() -> void:
+	if controller:
+		controller.queue_free()
+	

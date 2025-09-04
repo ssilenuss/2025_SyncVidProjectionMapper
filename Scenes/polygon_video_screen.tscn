@@ -1,19 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://de8atsuuael7u"]
 
-[ext_resource type="Script" uid="uid://bo2tigylb1lqk" path="res://Scripts/control.gd" id="1_xtmcn"]
+[ext_resource type="Script" uid="uid://bo2tigylb1lqk" path="res://Scripts/PolygonController.gd" id="1_xtmcn"]
 [ext_resource type="Texture2D" uid="uid://ul0moxtwivko" path="res://icon.svg" id="3_5injh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_442uc"]
 
-[node name="Control" type="Control" node_paths=PackedStringArray("polygon", "handles")]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="2DPolygon_Video_Screen" type="Node2D" node_paths=PackedStringArray("polygon", "handles")]
 script = ExtResource("1_xtmcn")
-divisions = 2
+size = Vector2(4008, 1844)
 polygon = NodePath("Polygon2D")
 handles = NodePath("Handles")
 
@@ -22,11 +16,8 @@ material = SubResource("ShaderMaterial_442uc")
 position = Vector2(118, 63)
 scale = Vector2(0.277262, 0.491416)
 texture = ExtResource("3_5injh")
-polygon = PackedVector2Array(0, 0, 576, 0, 1152, 0, 1152, 324, 1152, 648, 576, 648, 0, 648, 0, 324)
-uv = PackedVector2Array(0, 0, 64, 0, 128, 0, 128, 64, 128, 128, 64, 128, 0, 128, 0, 64)
+polygon = PackedVector2Array(0, 0, 4008, 0, 4008, 1844, 0, 1844)
+uv = PackedVector2Array(0, 0, 128, 0, 128, 128, 0, 128)
 
 [node name="Handles" type="Node2D" parent="."]
 position = Vector2(6.86646e-05, -2.67029e-05)
-scale = Vector2(1, 1)
-
-[connection signal="resized" from="." to="." method="_on_resized"]

@@ -1,3 +1,38 @@
-[gd_scene format=3 uid="uid://bnth6k3hfqsg1"]
+[gd_scene load_steps=3 format=3 uid="uid://bnth6k3hfqsg1"]
 
-[node name="Testvid" type="Node2D"]
+[ext_resource type="Script" uid="uid://v3utij2ylmtk" path="res://Scenes/VideoMapperUI.gd" id="1_v02sy"]
+[ext_resource type="PackedScene" uid="uid://de8atsuuael7u" path="res://Scenes/polygon_video_screen.tscn" id="1_xjhns"]
+
+[node name="VideoMapper" type="Control" node_paths=PackedStringArray("control_vbox", "videos")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_v02sy")
+video_node = ExtResource("1_xjhns")
+control_vbox = NodePath("ControlVbox")
+videos = NodePath("Videos")
+
+[node name="Videos" type="Node2D" parent="."]
+
+[node name="ControlVbox" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ControlVbox"]
+layout_mode = 2
+
+[node name="AddVid" type="Button" parent="ControlVbox/HBoxContainer"]
+layout_mode = 2
+text = " + "
+
+[node name="SubVid" type="Button" parent="ControlVbox/HBoxContainer"]
+layout_mode = 2
+text = " - "
+
+[connection signal="resized" from="." to="." method="_on_resized"]
+[connection signal="pressed" from="ControlVbox/HBoxContainer/AddVid" to="." method="_on_addvid_button_pressed"]
+[connection signal="pressed" from="ControlVbox/HBoxContainer/SubVid" to="." method="_on_subvid_pressed"]
