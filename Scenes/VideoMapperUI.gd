@@ -2,6 +2,7 @@ extends Control
 
 @export var video_node : PackedScene 
 @export var control_vbox : VBoxContainer
+@export var video_controls : Control
 @export var videos : Node2D
 
 var controls_visible : bool = true

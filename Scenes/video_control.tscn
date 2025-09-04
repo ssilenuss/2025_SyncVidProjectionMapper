@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://dr7u51sxonuf8"]
+
+[ext_resource type="Script" path="res://Scenes/VideoControls.gd" id="1_6hdv4"]
+
+[node name="VideoControl" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+size_flags_vertical = 3
+script = ExtResource("1_6hdv4")
+
+[node name="DivisionsSlider" type="HSlider" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 16.0
+min_value = 1.0
+max_value = 4.0
+value = 1.0
+
+[connection signal="value_changed" from="DivisionsSlider" to="." method="_on_divisions_slider_value_changed"]

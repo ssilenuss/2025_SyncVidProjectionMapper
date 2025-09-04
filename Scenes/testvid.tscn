@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://bnth6k3hfqsg1"]
 
-[ext_resource type="Script" uid="uid://v3utij2ylmtk" path="res://Scenes/VideoMapperUI.gd" id="1_v02sy"]
+[ext_resource type="Script" path="res://Scenes/VideoMapperUI.gd" id="1_v02sy"]
 [ext_resource type="PackedScene" uid="uid://de8atsuuael7u" path="res://Scenes/polygon_video_screen.tscn" id="1_xjhns"]
 
-[node name="VideoMapper" type="Control" node_paths=PackedStringArray("control_vbox", "videos")]
+[node name="VideoMapper" type="Control" node_paths=PackedStringArray("control_vbox", "video_controls", "videos")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,9 +13,12 @@ grow_vertical = 2
 script = ExtResource("1_v02sy")
 video_node = ExtResource("1_xjhns")
 control_vbox = NodePath("ControlVbox")
+video_controls = NodePath("ControlVbox/VideoControls")
 videos = NodePath("Videos")
 
 [node name="Videos" type="Node2D" parent="."]
+
+[node name="2DPolygon_Video_Screen" parent="Videos" instance=ExtResource("1_xjhns")]
 
 [node name="ControlVbox" type="VBoxContainer" parent="."]
 layout_mode = 0
@@ -32,6 +35,9 @@ text = " + "
 [node name="SubVid" type="Button" parent="ControlVbox/HBoxContainer"]
 layout_mode = 2
 text = " - "
+
+[node name="VideoControls" type="Control" parent="ControlVbox"]
+layout_mode = 2
 
 [connection signal="resized" from="." to="." method="_on_resized"]
 [connection signal="pressed" from="ControlVbox/HBoxContainer/AddVid" to="." method="_on_addvid_button_pressed"]

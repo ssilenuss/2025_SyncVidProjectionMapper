@@ -27,7 +27,7 @@ func set_screen_size(value: Vector2)->void:
 		handles = value
 		print("set Handles")
 		
-@export var controller :Control
+@export var controller : VideoControl
 
 func _ready() -> void:
 	set_polygon_vertices()
