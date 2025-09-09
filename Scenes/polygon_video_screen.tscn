@@ -5,11 +5,12 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_442uc"]
 
-[node name="2DPolygon_Video_Screen" type="Node2D" node_paths=PackedStringArray("polygon", "handles")]
+[node name="2DPolygon_Video_Screen" type="Node2D" node_paths=PackedStringArray("polygon", "handles", "collider")]
 script = ExtResource("1_xtmcn")
 size = Vector2(4008, 1844)
 polygon = NodePath("Polygon2D")
 handles = NodePath("Handles")
+collider = NodePath("Polygon2D/Area2D/CollisionPolygon2D")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 material = SubResource("ShaderMaterial_442uc")
@@ -19,5 +20,13 @@ texture = ExtResource("3_5injh")
 polygon = PackedVector2Array(0, 0, 4008, 0, 4008, 1844, 0, 1844)
 uv = PackedVector2Array(0, 0, 128, 0, 128, 128, 0, 128)
 
+[node name="Area2D" type="Area2D" parent="Polygon2D"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Polygon2D/Area2D"]
+polygon = PackedVector2Array(-7.62939e-06, -7.62939e-06, 4008, -7.62939e-06, 4008, 1844, -7.62939e-06, 1844)
+
 [node name="Handles" type="Node2D" parent="."]
 position = Vector2(6.86646e-05, -2.67029e-05)
+
+[connection signal="mouse_entered" from="Polygon2D/Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Polygon2D/Area2D" to="." method="_on_area_2d_mouse_exited"]

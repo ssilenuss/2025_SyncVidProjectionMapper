@@ -29,6 +29,12 @@ func set_screen_size(value: Vector2)->void:
 		
 @export var controller : VideoControl
 
+@export var collider: CollisionPolygon2D
+
+var active : bool = false
+var hover : bool = false
+var bottom_right: Vector2
+
 func _ready() -> void:
 	set_polygon_vertices()
 
@@ -38,7 +44,14 @@ func switch_videocontrol_visibility()->void:
 
 
 func _process(delta: float) -> void:
-	pass
+	if not Engine.is_editor_hint():
+		if Input.is_action_just_pressed("left_mouse") and hover:
+			active = true
+		elif Input.is_action_just_released("left_mouse"):
+			active = false
+	
+		if active:
+			position = get_global_mouse_position()-polygon.position 
 
 
 #func _on_resized() -> void:
@@ -75,11 +88,14 @@ func set_polygon_vertices()->void:
 	
 	polygon.polygon = vertices
 	
+	
 
 	for v in vertices.size():
 		vertices[v] = (vertices[v] / size) * polygon.texture.get_size()
 
 	polygon.uv = vertices
+	
+	print(collider.polygon)
 	
 
 	gen_handles()
@@ -90,17 +106,65 @@ func gen_handles()->void:
 	
 	for i in handles.get_children():
 		i.queue_free()
-		
+	
+	
+	
 	for v in polygon.polygon.size():
 		var h := Handle2D.new()
 		h.idx = v
 		h.polygon = polygon
 		h.size = Vector2(40,40)
+		#the handles node is outside of the polygon 2D, so:
 		h.position = polygon.polygon[v]*polygon.scale + polygon.position
-		h.position -= h.size/2.0
+		#center on button
+		h.position -= h.size/2.0		
 		handles.add_child(h)
+		h.button_up.connect(handle_released)
+		
+		
 
+	
+	update_area2D()
+		
+func handle_released()->void:
+	update_area2D()
+	
+func update_area2D()->void:
+	var collider_polygon : PackedVector2Array = []
+	bottom_right = Vector2.ZERO
+	
+	for h in handles.get_children():
+		#for use in recentering on mouse click
+		bottom_right.x = max(h.position.x, bottom_right.x)
+		bottom_right.y = max(h.position.y, bottom_right.y)
+		
+		var vert : Vector2 = h.position/polygon.scale
+		vert -= polygon.position/polygon.scale
+		#center on handles
+		vert += h.size/(2.0*polygon.scale)
+		collider_polygon.append(vert)
+		bottom_right.x = max(bottom_right.x, h.position.x)
+		bottom_right.y = max(bottom_right.y, h.position.y)
+	
+	collider.polygon = collider_polygon
+		
+	
+	
 func _exit_tree() -> void:
 	if controller:
 		controller.queue_free()
+	
+
+
+func _on_area_2d_mouse_entered() -> void:
+	if handles.visible:
+		modulate = Color(1,0,0,1)
+	
+	hover = true
+	
+
+
+func _on_area_2d_mouse_exited() -> void:
+	modulate = Color(1,1,1,1)
+	hover = false
 	
