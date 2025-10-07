@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://dpgqiajvujr76"]
+
+[ext_resource type="Script" uid="uid://cuimgf5movqod" path="res://FullScreenSyncronizer/MultiChannelFullScreen.gd" id="1_2ye8d"]
+[ext_resource type="Script" uid="uid://deteikp8oipbw" path="res://FullScreenSyncronizer/LoadVideoButton.gd" id="2_ql4qg"]
+
+[node name="MultiChannelFullscreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2ye8d")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="Videos" type="VBoxContainer" parent="VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="LoadVideo" type="Button" parent="VBoxContainer/MarginContainer/Videos"]
+layout_mode = 2
+text = "LOAD VIDEO
+"
+script = ExtResource("2_ql4qg")
+
+[node name="PlayButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "PLAY"

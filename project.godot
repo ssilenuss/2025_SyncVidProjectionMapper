@@ -11,8 +11,17 @@ config_version=5
 [application]
 
 config/name="New Game Project"
-config/features=PackedStringArray("4.4", "Mobile")
+run/main_scene="uid://dpgqiajvujr76"
+config/features=PackedStringArray("4.5", "Mobile")
 config/icon="res://icon.svg"
+
+[display]
+
+window/subwindows/embed_subwindows=false
+
+[editor]
+
+movie_writer/movie_file="/Users/kmt/Documents/test.avi"
 
 [input]
 
