@@ -1,18 +1,27 @@
 [gd_scene load_steps=3 format=3 uid="uid://2u1r6e0y1ojo"]
 
 [ext_resource type="Script" uid="uid://do74kf4txqnus" path="res://FullScreenSyncronizer/VideoWindow.gd" id="1_diqa7"]
-[ext_resource type="Texture2D" uid="uid://ul0moxtwivko" path="res://icon.svg" id="2_6oil3"]
+[ext_resource type="VideoStream" uid="uid://bfb1fifr4j6cv" path="res://Videos/test0.ogv" id="3_6oil3"]
 
 [node name="VideoWindow" type="Window"]
 oversampling_override = 1.0
+position = Vector2i(0, 36)
 script = ExtResource("1_diqa7")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="VideoHolder" type="Control" parent="."]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_6oil3")
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="VideoHolder"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+stream = ExtResource("3_6oil3")
+autoplay = true
+expand = true
 
 [connection signal="close_requested" from="." to="." method="_on_close_requested"]

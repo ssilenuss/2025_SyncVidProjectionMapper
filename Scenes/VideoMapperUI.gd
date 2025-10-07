@@ -10,7 +10,7 @@ var controls_visible : bool = true
 func _ready() -> void:
 	set_anchors_preset(Control.PRESET_FULL_RECT)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ui_accept"):
 		switch_controller_visibility()
 		
