@@ -1,7 +1,27 @@
 extends Window
-
+class_name VideoWindow
 var file : VideoStreamTheora
 var player : VideoStreamPlayer
+var frame : int = 0
+var root_node : VideoController
+var dragging : bool = false
+
+
+var fullscreen := false :
+	set(value):
+		fullscreen = value
+		if fullscreen:
+			set_mode(Window.MODE_EXCLUSIVE_FULLSCREEN)
+			fullscreen_button.text = "MINIMIZE"
+			
+		else:
+			set_mode(Window.MODE_WINDOWED)
+			fullscreen_button.text = "FULLSCREEN"
+			
+			
+
+@export var overlay: Control
+@export var fullscreen_button : Button
 
 func _ready() -> void:
 	player = VideoStreamPlayer.new()
@@ -12,7 +32,7 @@ func _ready() -> void:
 		
 		
 	player.set_expand(true)
-	player.set_autoplay(true)
+	#player.set_autoplay(true)
 	$VideoHolder.add_child(player)
 	
 	
@@ -24,16 +44,44 @@ func _ready() -> void:
 
 	
 	#window data
-	title = player.get_stream_name()
-	player.stop()
+	#title = player.get_stream_name()
+
 
 	visible = true
-	position = Vector2(800,800)
+	root_node.vid_position += size/2.0
+	position =  root_node.vid_position
+	player.finished.connect(root_node._on_video_finished)
 
 func _process(_delta: float) -> void:
+	if frame == 0:
+		frame +=1
+	elif frame == 1:
+		player.stop()
+		frame += 1
+		
 	
-	if not player.is_playing():
-		player.play()
-			
 func _on_close_requested() -> void:
 	self.queue_free()
+
+
+func _on_size_changed() -> void:
+	if player:
+		player.set_custom_minimum_size(size)
+		print(size, player.size)
+
+
+func _on_mouse_entered() -> void:
+	root_node.hover_vw = self
+	
+	if root_node.mouse_hidden:
+		return
+	
+	overlay.visible = true
+
+
+func _on_mouse_exited() -> void:
+	overlay.visible = false
+
+
+func _on_fullscreen_pressed() -> void:
+	fullscreen = !fullscreen
