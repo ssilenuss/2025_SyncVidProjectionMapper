@@ -8,6 +8,7 @@ var status : String
 
 var video_window : PackedScene = preload("res://FullScreenSyncronizer/VideoWindow.tscn")
 
+@export var windows_node : Node
 
 func _ready() -> void:
 	pressed.connect(_on_pressed)
@@ -37,5 +38,5 @@ func on_file_dialog_file_selected(path:String) -> void:
 func spawn_video_window(_file: VideoStreamTheora):
 	var vw : Node = video_window.instantiate()
 	vw.file = _file
-	add_child(vw)
+	windows_node.add_child(vw)
 	

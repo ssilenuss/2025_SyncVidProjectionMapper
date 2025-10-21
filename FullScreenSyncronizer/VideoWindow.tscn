@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://2u1r6e0y1ojo"]
+[gd_scene load_steps=2 format=3 uid="uid://2u1r6e0y1ojo"]
 
 [ext_resource type="Script" uid="uid://do74kf4txqnus" path="res://FullScreenSyncronizer/VideoWindow.gd" id="1_diqa7"]
-[ext_resource type="VideoStream" uid="uid://bfb1fifr4j6cv" path="res://Videos/test0.ogv" id="3_6oil3"]
 
 [node name="VideoWindow" type="Window"]
 oversampling_override = 1.0
@@ -15,13 +14,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="VideoHolder"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-stream = ExtResource("3_6oil3")
-autoplay = true
-expand = true
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [connection signal="close_requested" from="." to="." method="_on_close_requested"]
