@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://cnpgurprucxyq"]
+
+[ext_resource type="Material" uid="uid://dddr5teeovmfr" path="res://3D Projection Mapper/VideoMaterial.material" id="1_r8dqn"]
+[ext_resource type="Script" uid="uid://clxuw8i7kffx3" path="res://3D Projection Mapper/MeshVid.gd" id="2_qdt4n"]
+[ext_resource type="PackedScene" uid="uid://3mr6otsysccn" path="res://3D Projection Mapper/handle_3d.tscn" id="3_rr17g"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_rr17g"]
+
+[node name="PlaneVid" type="Node3D" unique_id=1500664674]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1508122718]
+transform = Transform3D(0.1, 0, 0, 0, 0.0014503165, -0.09998948, 0, 0.09998948, 0.0014503165, 0, 0, 0)
+mesh = SubResource("PlaneMesh_rr17g")
+script = ExtResource("2_qdt4n")
+material = ExtResource("1_r8dqn")
+handle_scene = ExtResource("3_rr17g")

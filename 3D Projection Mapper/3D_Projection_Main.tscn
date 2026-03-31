@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://cbof2ubihk5w2"]
+
+[ext_resource type="Script" uid="uid://c41tek8j02ghy" path="res://3D Projection Mapper/3d_projection_main.gd" id="1_8qq6j"]
+[ext_resource type="PackedScene" uid="uid://cnpgurprucxyq" path="res://3D Projection Mapper/Plane.tscn" id="2_304xw"]
+[ext_resource type="Script" uid="uid://c4nydph4gigvs" path="res://3D Projection Mapper/ShapeButton.gd" id="3_mdfm7"]
+
+[node name="3dProjectionMain" type="Node3D" unique_id=1603398301]
+script = ExtResource("1_8qq6j")
+plane_vid = ExtResource("2_304xw")
+
+[node name="Control" type="Control" parent="." unique_id=363212682]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control" unique_id=1201608026]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Plane" type="Button" parent="Control/HBoxContainer" unique_id=809460672]
+layout_mode = 2
+text = "Square"
+script = ExtResource("3_mdfm7")
+
+[node name="Videos" type="Node3D" parent="." unique_id=1093518708]
+
+[node name="PlaneVid" parent="Videos" unique_id=1500664674 instance=ExtResource("2_304xw")]
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=109651079]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5488838)

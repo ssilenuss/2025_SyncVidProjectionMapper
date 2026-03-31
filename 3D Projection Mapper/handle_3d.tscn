@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://3mr6otsysccn"]
+
+[ext_resource type="Script" uid="uid://stjfxycib2pq" path="res://handle_3d.gd" id="1_455sv"]
+[ext_resource type="Material" uid="uid://bn8wdvl4v2ky1" path="res://3D Projection Mapper/handle.material" id="2_73hjc"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_5ljll"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_8i7f1"]
+
+[node name="Handle3D" type="Area3D" unique_id=1157240091]
+transform = Transform3D(0.42, 0, 0, 0, 0.42, 0, 0, 0, 0.42, 0, 0, 0)
+script = ExtResource("1_455sv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=275034514]
+material_override = ExtResource("2_73hjc")
+mesh = SubResource("SphereMesh_5ljll")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=600501142]
+shape = SubResource("SphereShape3D_8i7f1")
